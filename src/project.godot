@@ -17,6 +17,7 @@ config/icon="res://icon.png"
 [autoload]
 
 Globals="*res://scripts/globals.gd"
+Server="*res://scripts/server.gd"
 
 [input]
 
