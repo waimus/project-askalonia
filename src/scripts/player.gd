@@ -10,6 +10,11 @@ var jump_force : float = 28.0
 var move_velocity : Vector3 = Vector3.ZERO
 
 
+func _ready():
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	get_tree().set_screen_stretch(SceneTree.STRETCH_MODE_2D, SceneTree.STRETCH_ASPECT_EXPAND, Vector2(1280, 720), Globals.ui_scaling)
+
+
 func _process(delta) -> void:
 	rotate_y(Globals.mouse_offset.x * -1)
 	player_camera.rotate_x(Globals.mouse_offset.z * -1)
