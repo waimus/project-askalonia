@@ -56,3 +56,13 @@ func register_player() -> void:
 
 sync func update_waiting_room() -> void:
 	get_tree().call_group("WaitingRoom", "refresh_players", players)
+
+
+func load_game() -> void:
+	rpc_id(1, "load_world")
+
+
+sync func start_game() -> void:
+	var world = preload("res://scenes/worlds/demo/demo.tscn").instance()
+	get_tree().get_root().add_child(world)
+	get_tree().get_root().get_node("Lobby").queue_free()

@@ -105,6 +105,9 @@ visible = false
 margin_top = 263.0
 margin_bottom = 337.0
 
+[node name="ItemList" parent="WaitingRoom/CenterContainer/VBoxContainer" index="1"]
+items = [ "Player 1", null, false, "Player 2", null, false, "Player 3", null, false, "Player 4", null, false ]
+
 [connection signal="text_changed" from="CenterContainer/VBoxContainer/GridContainer/NameTextbox" to="." method="_on_name_textbox_text_changed"]
 [connection signal="pressed" from="CenterContainer/VBoxContainer/ConnectButton" to="." method="_on_connect_button_pressed"]
 [connection signal="pressed" from="WaitingRoom/CenterContainer/VBoxContainer/ReadyButton" to="." method="_on_ready_button_pressed"]

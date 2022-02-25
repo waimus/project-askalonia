@@ -28,8 +28,9 @@ func _on_name_textbox_text_changed(new_text) -> void:
 
 
 func show_waiting_room() -> void:
-	waiting_room.popup_centered()
+	waiting_room.popup()
 
 
 func _on_ready_button_pressed() -> void:
+	Server.load_game()
 	ready_button.set_disabled(true)
