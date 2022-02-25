@@ -26,9 +26,9 @@ anchor_bottom = 1.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
 margin_left = 362.0
-margin_top = 190.0
+margin_top = 164.0
 margin_right = 662.0
-margin_bottom = 409.0
+margin_bottom = 436.0
 custom_constants/separation = 15
 
 [node name="Label" type="Label" parent="CenterContainer/VBoxContainer"]
@@ -37,10 +37,17 @@ margin_bottom = 14.0
 text = "Waiting for other players  to join . . ."
 align = 1
 
-[node name="ItemList" type="ItemList" parent="CenterContainer/VBoxContainer"]
+[node name="Label2" type="Label" parent="CenterContainer/VBoxContainer"]
 margin_top = 29.0
 margin_right = 300.0
-margin_bottom = 174.0
+margin_bottom = 43.0
+text = "Press the \"Ready\" button when you're ready"
+align = 1
+
+[node name="ItemList" type="ItemList" parent="CenterContainer/VBoxContainer"]
+margin_top = 58.0
+margin_right = 300.0
+margin_bottom = 227.0
 rect_min_size = Vector2( 300, 0 )
 custom_constants/vseparation = 10
 custom_fonts/font = ExtResource( 2 )
@@ -50,8 +57,8 @@ same_column_width = true
 fixed_column_width = 200
 
 [node name="ReadyButton" type="Button" parent="CenterContainer/VBoxContainer"]
-margin_top = 189.0
+margin_top = 242.0
 margin_right = 300.0
-margin_bottom = 219.0
+margin_bottom = 272.0
 rect_min_size = Vector2( 0, 30 )
 text = "Ready"

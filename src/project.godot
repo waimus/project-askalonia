@@ -11,7 +11,7 @@ config_version=4
 [application]
 
 config/name="askalonia"
-run/main_scene="res://scenes/worlds/demo/demo.tscn"
+run/main_scene="res://scenes/lobby.tscn"
 config/icon="res://icon.png"
 
 [autoload]

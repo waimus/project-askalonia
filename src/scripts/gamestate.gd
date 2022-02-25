@@ -10,7 +10,7 @@ func _ready() -> void:
 	rpc_id(1, "spawn_players", Server.local_player_id)
 
 
-remote func spawn_player(id):
+remote func spawn_player(id) -> void:
 	var player = PLAYER.instance()
 	player.name = str(id)
 	players.add_child(player)
