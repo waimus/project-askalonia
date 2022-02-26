@@ -66,3 +66,8 @@ sync func start_game() -> void:
 	var world = preload("res://scenes/worlds/demo/demo.tscn").instance()
 	get_tree().get_root().add_child(world)
 	get_tree().get_root().get_node("Lobby").queue_free()
+
+
+remote func kill_client() -> void:
+	print("server prompted to kill clients")
+	get_tree().quit()

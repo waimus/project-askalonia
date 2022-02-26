@@ -5,7 +5,7 @@ extends Node
 var ui_scaling : float = 1
 
 # Mouse Configuration
-var mouse_sensitivity : float = 45
+var mouse_sensitivity : float = 60
 var mouse_smoothing : float = 600
 var mouse_offset : Vector3
 var mouse_receiving : bool = false
@@ -40,10 +40,10 @@ func _unhandled_input(event) -> void:
 	if event.is_action_pressed("ui_cancel"):
 		print("Quitting . . .")
 		get_tree().quit()
-	
+		
 	if event is InputEventMouseMotion: 
 		mouse_motion_count += 1
-
+		
 		var x : float = event.relative.x / (mouse_smoothing * 2)
 		var z : float = event.relative.y / (mouse_smoothing * 2)
 		mouse_offset = Vector3(x, 0, z)

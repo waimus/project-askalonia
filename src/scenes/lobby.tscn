@@ -7,9 +7,6 @@
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="ColorRect" type="ColorRect" parent="."]
 anchor_right = 1.0
@@ -99,13 +96,12 @@ __meta__ = {
 }
 
 [node name="WaitingRoom" parent="." instance=ExtResource( 2 )]
-visible = false
 
 [node name="VBoxContainer" parent="WaitingRoom/CenterContainer" index="0"]
-margin_top = 263.0
-margin_bottom = 337.0
+margin_top = 248.0
+margin_bottom = 351.0
 
-[node name="ItemList" parent="WaitingRoom/CenterContainer/VBoxContainer" index="1"]
+[node name="ItemList" parent="WaitingRoom/CenterContainer/VBoxContainer" index="2"]
 items = [ "Player 1", null, false, "Player 2", null, false, "Player 3", null, false, "Player 4", null, false ]
 
 [connection signal="text_changed" from="CenterContainer/VBoxContainer/GridContainer/NameTextbox" to="." method="_on_name_textbox_text_changed"]

@@ -1,5 +1,6 @@
 extends Node
 
+
 const PLAYER = preload("res://scenes/objects/player.tscn")
 
 onready var player_spawn = $PlayerSpawn

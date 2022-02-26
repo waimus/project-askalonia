@@ -1,5 +1,5 @@
-
 # Godot-specific ignores
+bin/
 logs/
 .import/
 export.cfg
