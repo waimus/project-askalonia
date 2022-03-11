@@ -1,9 +1,10 @@
-[gd_scene load_steps=84 format=2]
+[gd_scene load_steps=86 format=2]
 
 [ext_resource path="res://addons/kenney_prototypes/demo/kenney_logo/kenney_logo.png" type="Texture" id=1]
 [ext_resource path="res://addons/kenney_prototypes/assets/colors/dark/scenes/prototype_dark_04.tscn" type="PackedScene" id=2]
 [ext_resource path="res://addons/kenney_prototypes/assets/colors/dark/scenes/prototype_dark_11.tscn" type="PackedScene" id=3]
 [ext_resource path="res://addons/kenney_prototypes/demo/demo_environment.tres" type="Environment" id=4]
+[ext_resource path="res://scenes/objects/int_door_hinge.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scripts/gamestate.gd" type="Script" id=6]
 [ext_resource path="res://addons/kenney_prototypes/assets/colors/dark/scenes/prototype_dark_08.tscn" type="PackedScene" id=7]
 [ext_resource path="res://addons/kenney_prototypes/assets/colors/dark/scenes/prototype_dark_06.tscn" type="PackedScene" id=8]
@@ -81,6 +82,7 @@
 [ext_resource path="res://addons/kenney_prototypes/assets/colors/red/scenes/prototype_red_06.tscn" type="PackedScene" id=80]
 [ext_resource path="res://addons/kenney_prototypes/assets/colors/red/scenes/prototype_red_02.tscn" type="PackedScene" id=81]
 [ext_resource path="res://addons/kenney_prototypes/assets/colors/red/scenes/prototype_red_01.tscn" type="PackedScene" id=82]
+[ext_resource path="res://scenes/objects/int_phys_box.tscn" type="PackedScene" id=83]
 
 [sub_resource type="QuadMesh" id=1]
 size = Vector2( 1280, 720 )
@@ -533,6 +535,12 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 2, -6 )
 
 [node name="Ground" parent="World" instance=ExtResource( 2 )]
 transform = Transform( 100, 0, 0, 0, 1, 0, 0, 0, 100, -100, -2, -100 )
+
+[node name="RigidBox" parent="World" instance=ExtResource( 83 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 6, -7 )
+
+[node name="InteractiveDoor" parent="World" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -16 )
 
 [node name="KenneyLogo" type="MeshInstance" parent="."]
 transform = Transform( 0.0655211, 0, 0, 0, 0.0655211, 0, 0, 0, 0.0655211, 0, 21.224, -166.559 )
