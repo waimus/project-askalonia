@@ -19,8 +19,6 @@ func _ready():
 	door_object = get_node(DoorNode)
 
 
-
-
 func _on_trigger_body_entered(body):
 	if body.is_in_group("Players"):
 		var door_animation : AnimationPlayer = door_object.get_node("AnimationPlayer")

@@ -23,6 +23,7 @@ radius = 0.5
 mid_height = 0.3
 
 [node name="KinematicBody" type="KinematicBody" groups=["Players"]]
+collision_layer = 17
 script = ExtResource( 1 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]

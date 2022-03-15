@@ -18,8 +18,9 @@ func _ready() -> void:
 
 
 func _process(delta) -> void:
-	rotate_y(Globals.mouse_offset.x * -1)
-	camera_pivot.rotate_x(Globals.mouse_offset.z * -1)
+	pass
+#	rotate_y(Globals.mouse_offset.x * -1)
+#	camera_pivot.rotate_x(Globals.mouse_offset.z * -1)
 
 
 func _physics_process(delta) -> void:
@@ -43,27 +44,37 @@ func _physics_process(delta) -> void:
 			world_gravity = Vector3.DOWN * 90.0
 
 
-func get_input(delta) -> void:
+func get_input(delta : float) -> void:
 	var vy = move_velocity.y
 	move_velocity = Vector3.ZERO
 	
 	if player_one:
-		if Input.is_action_pressed("pl1_move_forward"):
+		var fw : bool = Input.is_action_pressed("pl1_move_forward")
+		var bw : bool = Input.is_action_pressed("pl1_move_backward")
+		var rt : bool = Input.is_action_pressed("pl1_move_right")
+		var lt : bool = Input.is_action_pressed("pl1_move_left")
+		
+		if fw:
 			move_velocity += -transform.basis.z * move_speed
-		if Input.is_action_pressed("pl1_move_backward"):
+		if bw:
 			move_velocity += transform.basis.z * move_speed
-		if Input.is_action_pressed("pl1_move_left"):
+		if lt:
 			move_velocity += -transform.basis.x * move_speed
-		if Input.is_action_pressed("pl1_move_right"):
+		if rt:
 			move_velocity += transform.basis.x * move_speed
 	else:
-		if Input.is_action_pressed("pl2_move_forward"):
+		var fw : bool = Input.is_action_pressed("pl2_move_forward")
+		var bw : bool = Input.is_action_pressed("pl2_move_backward")
+		var rt : bool = Input.is_action_pressed("pl2_move_right")
+		var lt : bool = Input.is_action_pressed("pl2_move_left")
+		
+		if fw:
 			move_velocity += -transform.basis.z * move_speed
-		if Input.is_action_pressed("pl2_move_backward"):
+		if bw:
 			move_velocity += transform.basis.z * move_speed
-		if Input.is_action_pressed("pl2_move_left"):
+		if lt:
 			move_velocity += -transform.basis.x * move_speed
-		if Input.is_action_pressed("pl2_move_right"):
+		if rt:
 			move_velocity += transform.basis.x * move_speed
 	
 	move_velocity.y = vy
