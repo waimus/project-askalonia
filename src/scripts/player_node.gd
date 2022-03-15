@@ -1,6 +1,8 @@
 extends KinematicBody
 
 
+export(bool) var player_one : bool = true
+
 onready var camera_pivot : Spatial = $CameraPivot
 
 var world_gravity : Vector3 = Vector3.DOWN * 10.0
@@ -25,24 +27,43 @@ func _physics_process(delta) -> void:
 	get_input(delta)
 	move_velocity = move_and_slide(move_velocity, Vector3.UP)
 	
-	if Input.is_action_just_pressed("pl_move_jump"):
-		if self.is_on_floor():
-			move_velocity.y = jump_force
-	
-	if !self.is_on_floor() and move_velocity.y < 0:
-		world_gravity = Vector3.DOWN * 90.0
+	if player_one:
+		if Input.is_action_just_pressed("pl1_move_jump"):
+			if self.is_on_floor():
+				move_velocity.y = jump_force
+
+		if !self.is_on_floor() and move_velocity.y < 0:
+			world_gravity = Vector3.DOWN * 90.0
+	else:
+		if Input.is_action_just_pressed("pl2_move_jump"):
+			if self.is_on_floor():
+				move_velocity.y = jump_force
+
+		if !self.is_on_floor() and move_velocity.y < 0:
+			world_gravity = Vector3.DOWN * 90.0
 
 
 func get_input(delta) -> void:
 	var vy = move_velocity.y
 	move_velocity = Vector3.ZERO
 	
-	if Input.is_action_pressed("pl_move_forward"):
-		move_velocity += -transform.basis.z * move_speed
-	if Input.is_action_pressed("pl_move_backward"):
-		move_velocity += transform.basis.z * move_speed
-	if Input.is_action_pressed("pl_move_left"):
-		move_velocity += -transform.basis.x * move_speed
-	if Input.is_action_pressed("pl_move_right"):
-		move_velocity += transform.basis.x * move_speed
+	if player_one:
+		if Input.is_action_pressed("pl1_move_forward"):
+			move_velocity += -transform.basis.z * move_speed
+		if Input.is_action_pressed("pl1_move_backward"):
+			move_velocity += transform.basis.z * move_speed
+		if Input.is_action_pressed("pl1_move_left"):
+			move_velocity += -transform.basis.x * move_speed
+		if Input.is_action_pressed("pl1_move_right"):
+			move_velocity += transform.basis.x * move_speed
+	else:
+		if Input.is_action_pressed("pl2_move_forward"):
+			move_velocity += -transform.basis.z * move_speed
+		if Input.is_action_pressed("pl2_move_backward"):
+			move_velocity += transform.basis.z * move_speed
+		if Input.is_action_pressed("pl2_move_left"):
+			move_velocity += -transform.basis.x * move_speed
+		if Input.is_action_pressed("pl2_move_right"):
+			move_velocity += transform.basis.x * move_speed
+	
 	move_velocity.y = vy
