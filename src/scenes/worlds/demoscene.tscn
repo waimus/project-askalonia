@@ -1,9 +1,13 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://addons/kenney_prototypes/demo/demo_environment.tres" type="Environment" id=1]
 [ext_resource path="res://addons/kenney_prototypes/assets/colors/dark/materials/material_002.tres" type="Material" id=2]
 [ext_resource path="res://addons/kenney_prototypes/assets/colors/orange/materials/material_001.tres" type="Material" id=3]
 [ext_resource path="res://scenes/objects/player_node.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scripts/wide_camera.gd" type="Script" id=5]
+
+[sub_resource type="CubeMesh" id=1]
+size = Vector3( 0.5, 0.5, 0.5 )
 
 [node name="DemoScene" type="Spatial"]
 
@@ -69,6 +73,18 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 2, 0 )
 player_one = false
 
-[node name="Camera" type="Camera" parent="."]
-transform = Transform( 1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 0, 18.2868, 5.33559 )
+[node name="WideCameraPivot" type="Spatial" parent="."]
+script = ExtResource( 5 )
+player_1_node = NodePath("../Players/Player_1")
+player_2_node = NodePath("../Players/Player_2")
+
+[node name="WideCamera" type="ClippedCamera" parent="WideCameraPivot"]
+transform = Transform( 1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 11, 19 )
+environment = ExtResource( 1 )
 current = true
+clip_to_bodies = false
+
+[node name="MeshInstance" type="MeshInstance" parent="WideCameraPivot"]
+mesh = SubResource( 1 )
+skeleton = NodePath("../..")
+material/0 = null
