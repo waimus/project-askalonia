@@ -11,14 +11,12 @@ config_version=4
 [application]
 
 config/name="askalonia"
-run/main_scene="res://scenes/lobby.tscn"
+run/main_scene="res://scenes/worlds/demoscene.tscn"
 config/icon="res://icon.png"
 
 [autoload]
 
 Globals="*res://scripts/globals.gd"
-Save="*res://scripts/save.gd"
-Server="*res://scripts/server.gd"
 
 [input]
 

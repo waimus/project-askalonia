@@ -1,0 +1,66 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://addons/kenney_prototypes/demo/demo_environment.tres" type="Environment" id=1]
+[ext_resource path="res://addons/kenney_prototypes/assets/colors/dark/materials/material_002.tres" type="Material" id=2]
+[ext_resource path="res://addons/kenney_prototypes/assets/colors/orange/materials/material_001.tres" type="Material" id=3]
+[ext_resource path="res://scenes/objects/player_node.tscn" type="PackedScene" id=4]
+
+[node name="DemoScene" type="Spatial"]
+
+[node name="World" type="Spatial" parent="."]
+
+[node name="csg_floor" type="CSGBox" parent="World"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0 )
+use_collision = true
+width = 80.0
+depth = 128.0
+material = ExtResource( 2 )
+
+[node name="walls" type="Spatial" parent="World"]
+
+[node name="CSGBox" type="CSGBox" parent="World/walls"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -39, 2, 0 )
+use_collision = true
+height = 4.0
+depth = 128.0
+material = ExtResource( 3 )
+
+[node name="CSGBox2" type="CSGBox" parent="World/walls"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 39, 2, 0 )
+use_collision = true
+height = 4.0
+depth = 128.0
+material = ExtResource( 3 )
+
+[node name="CSGBox3" type="CSGBox" parent="World/walls"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 63 )
+use_collision = true
+width = 76.0
+height = 4.0
+material = ExtResource( 3 )
+
+[node name="CSGBox4" type="CSGBox" parent="World/walls"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -63 )
+use_collision = true
+width = 76.0
+height = 4.0
+material = ExtResource( 3 )
+
+[node name="CSGBox" type="CSGBox" parent="World"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 1, -5 )
+use_collision = true
+material = ExtResource( 3 )
+
+[node name="Env" type="Spatial" parent="World"]
+
+[node name="DirectionalLight" type="DirectionalLight" parent="World/Env"]
+transform = Transform( 0.5, 0.75, -0.433013, 0, 0.5, 0.866025, 0.866025, -0.433013, 0.25, 0, 4, 0 )
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="World/Env"]
+environment = ExtResource( 1 )
+
+[node name="Players" type="Spatial" parent="."]
+
+[node name="Player_1" parent="Players" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0 )
