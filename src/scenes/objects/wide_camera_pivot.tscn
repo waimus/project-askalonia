@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://scripts/wide_camera.gd" type="Script" id=1]
+[ext_resource path="res://addons/kenney_prototypes/demo/demo_environment.tres" type="Environment" id=2]
+
+[sub_resource type="CubeMesh" id=1]
+size = Vector3( 0.5, 0.5, 0.5 )
+
+[node name="WideCameraPivot" type="Spatial"]
+script = ExtResource( 1 )
+player_1_node = NodePath("../Players/Player_1")
+player_2_node = NodePath("../Players/Player_2")
+
+[node name="WideCamera" type="ClippedCamera" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 11, 19 )
+environment = ExtResource( 2 )
+current = true
+clip_to_bodies = false
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+mesh = SubResource( 1 )
+skeleton = NodePath("../..")
+material/0 = null

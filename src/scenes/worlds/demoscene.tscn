@@ -1,13 +1,13 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://addons/kenney_prototypes/demo/demo_environment.tres" type="Environment" id=1]
 [ext_resource path="res://addons/kenney_prototypes/assets/colors/dark/materials/material_002.tres" type="Material" id=2]
 [ext_resource path="res://addons/kenney_prototypes/assets/colors/orange/materials/material_001.tres" type="Material" id=3]
 [ext_resource path="res://scenes/objects/player_node.tscn" type="PackedScene" id=4]
-[ext_resource path="res://scripts/wide_camera.gd" type="Script" id=5]
-
-[sub_resource type="CubeMesh" id=1]
-size = Vector3( 0.5, 0.5, 0.5 )
+[ext_resource path="res://scenes/objects/wide_camera_pivot.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/objects/int_phys_box.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/objects/int_hinge_door.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/objects/area_door_trigger.tscn" type="PackedScene" id=8]
 
 [node name="DemoScene" type="Spatial"]
 
@@ -64,6 +64,24 @@ shadow_enabled = true
 [node name="WorldEnvironment" type="WorldEnvironment" parent="World/Env"]
 environment = ExtResource( 1 )
 
+[node name="Physics" type="Spatial" parent="World"]
+
+[node name="PhysBox" parent="World/Physics" instance=ExtResource( 6 )]
+transform = Transform( 0.774017, 0, 0.633165, 0, 1, 0, -0.633165, 0, 0.774017, 0, 1, -9 )
+
+[node name="PhysBox2" parent="World/Physics" instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.71293, 1, -9 )
+
+[node name="PhysBox3" parent="World/Physics" instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 3, -9 )
+
+[node name="IntHingeDoor" parent="World" instance=ExtResource( 7 )]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -7, 0, -15 )
+
+[node name="AreaDoorTrigger" parent="World" instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -5 )
+DoorNode = NodePath("../IntHingeDoor")
+
 [node name="Players" type="Spatial" parent="."]
 
 [node name="Player_1" parent="Players" instance=ExtResource( 4 )]
@@ -73,18 +91,4 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 2, 0 )
 player_one = false
 
-[node name="WideCameraPivot" type="Spatial" parent="."]
-script = ExtResource( 5 )
-player_1_node = NodePath("../Players/Player_1")
-player_2_node = NodePath("../Players/Player_2")
-
-[node name="WideCamera" type="ClippedCamera" parent="WideCameraPivot"]
-transform = Transform( 1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 11, 19 )
-environment = ExtResource( 1 )
-current = true
-clip_to_bodies = false
-
-[node name="MeshInstance" type="MeshInstance" parent="WideCameraPivot"]
-mesh = SubResource( 1 )
-skeleton = NodePath("../..")
-material/0 = null
+[node name="WideCameraPivot" parent="." instance=ExtResource( 5 )]
