@@ -9,7 +9,7 @@ var camera : Camera
 
 var world_gravity : Vector3 = Vector3.DOWN * 10.0
 var move_speed : float = 8.0
-var jump_force : float = 28.0
+var jump_force : float = 25.0
 
 var move_velocity : Vector3 = Vector3.ZERO
 
@@ -23,14 +23,12 @@ func _ready() -> void:
 	camera_pivot = get_node(ActiveCameraNode)
 	camera = camera_pivot.get_node("WideCamera")
 	
-	$Helpers/VelocityHelper.set_as_toplevel(true)
-	
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+#	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	get_tree().set_screen_stretch(SceneTree.STRETCH_MODE_2D, SceneTree.STRETCH_ASPECT_EXPAND, Vector2(1280, 720), Globals.ui_scaling)
 
 
 func _process(delta) -> void:
-	configure_helpers()
+	configure_helper()
 
 
 func _physics_process(delta) -> void:
@@ -84,13 +82,13 @@ func get_input(delta : float) -> void:
 	move_velocity.y = vy
 
 
-func configure_helpers() -> void:
-	var moving : Array = [fw, bw, lt, rt]
+func configure_helper() -> void:
+	var x : float = move_velocity.x
+	var y : float = 0
+	var z : float = move_velocity.z
 	
-	if !moving.has(true):
-		var x : float = move_velocity.x
-		var y : float = $Helpers/VelocityHelper.translation.y
-		var z : float = move_velocity.z
-		$Helpers/VelocityHelper.translation = Vector3(x, y, z).normalized()
+	if move_velocity.abs() > Vector3(0.1, 0.1, 0.1):
+		$Helpers/Velocity.transform.origin = Vector3(x, y, z).normalized() * 4
 	else:
-		$Helpers/VelocityHelper.translation = Vector3(0, $Helpers/VelocityHelper.translation.y, 0)
+		$Helpers/Velocity.transform.origin = Vector3.ZERO
+
