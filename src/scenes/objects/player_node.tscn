@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://scripts/player_node.gd" type="Script" id=1]
 
@@ -22,6 +22,9 @@ material = SubResource( 5 )
 radius = 0.5
 mid_height = 0.3
 
+[sub_resource type="CubeMesh" id=6]
+size = Vector3( 0.1, 0.1, 0.1 )
+
 [node name="KinematicBody" type="KinematicBody" groups=["Players"]]
 collision_layer = 17
 script = ExtResource( 1 )
@@ -38,4 +41,11 @@ material/0 = null
 [node name="MeshInstance" type="MeshInstance" parent="MeshInstance"]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0.411023, -0.781037 )
 mesh = SubResource( 3 )
+material/0 = null
+
+[node name="Helpers" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0 )
+
+[node name="VelocityHelper" type="MeshInstance" parent="Helpers"]
+mesh = SubResource( 6 )
 material/0 = null

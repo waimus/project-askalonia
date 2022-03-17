@@ -21,7 +21,7 @@ func _process(delta : float) -> void :
 	self.translation = (player_1.translation + player_2.translation) * 0.5
 	
 	players_distance = player_1.translation.distance_to(player_2.translation)
-	dynamic_fov = lerp(40, 110, players_distance / 70)
+	dynamic_fov = lerp(30, 115, players_distance / 100)
 	
 	if wide_camera.get_fov() < 120:
 		wide_camera.set_fov(dynamic_fov)
