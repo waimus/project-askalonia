@@ -18,7 +18,7 @@ player_1_node = NodePath("../Players/Player_1")
 player_2_node = NodePath("../Players/Player_2")
 
 [node name="WideCamera" type="ClippedCamera" parent="."]
-transform = Transform( 1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 11, 19 )
+transform = Transform( 0.707107, -0.353553, 0.612372, 0, 0.866025, 0.5, -0.707107, -0.353553, 0.612372, 19, 16, 19 )
 environment = ExtResource( 2 )
 current = true
 clip_to_bodies = false

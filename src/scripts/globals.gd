@@ -19,7 +19,7 @@ func _ready() -> void:
 	mouse_smoothing = invert_by_max(mouse_sensitivity, 100) * 10
 
 
-func _process(delta) -> void:
+func _process(delta : float) -> void:
 	mouse_move_check()
 
 

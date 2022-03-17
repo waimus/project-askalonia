@@ -86,9 +86,11 @@ DoorNode = NodePath("../IntHingeDoor")
 
 [node name="Player_1" parent="Players" instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0 )
+ActiveCameraNode = NodePath("../../WideCameraPivot")
 
 [node name="Player_2" parent="Players" instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 2, 0 )
 player_one = false
+ActiveCameraNode = NodePath("../../WideCameraPivot")
 
 [node name="WideCameraPivot" parent="." instance=ExtResource( 5 )]

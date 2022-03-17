@@ -2,8 +2,10 @@ extends KinematicBody
 
 
 export(bool) var player_one : bool = true
+export(NodePath) var ActiveCameraNode : NodePath
 
-onready var camera_pivot : Spatial = $CameraPivot
+var camera_pivot : Spatial
+var camera : Camera
 
 var world_gravity : Vector3 = Vector3.DOWN * 10.0
 var move_speed : float = 8.0
@@ -13,14 +15,14 @@ var move_velocity : Vector3 = Vector3.ZERO
 
 
 func _ready() -> void:
+	camera_pivot = get_node(ActiveCameraNode)
+	camera = camera_pivot.get_node("WideCamera")
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	get_tree().set_screen_stretch(SceneTree.STRETCH_MODE_2D, SceneTree.STRETCH_ASPECT_EXPAND, Vector2(1280, 720), Globals.ui_scaling)
 
 
 func _process(delta) -> void:
 	pass
-#	rotate_y(Globals.mouse_offset.x * -1)
-#	camera_pivot.rotate_x(Globals.mouse_offset.z * -1)
 
 
 func _physics_process(delta) -> void:
@@ -45,6 +47,7 @@ func _physics_process(delta) -> void:
 
 
 func get_input(delta : float) -> void:
+	var camera_forward = camera.transform.basis.z.normalized()
 	var vy = move_velocity.y
 	move_velocity = Vector3.ZERO
 	
@@ -55,13 +58,13 @@ func get_input(delta : float) -> void:
 		var lt : bool = Input.is_action_pressed("pl1_move_left")
 		
 		if fw:
-			move_velocity += -transform.basis.z * move_speed
+			move_velocity += -camera_forward * move_speed
 		if bw:
-			move_velocity += transform.basis.z * move_speed
+			move_velocity += camera_forward  * move_speed
 		if lt:
-			move_velocity += -transform.basis.x * move_speed
+			move_velocity += camera_forward.cross(Vector3.UP) * move_speed
 		if rt:
-			move_velocity += transform.basis.x * move_speed
+			move_velocity += -camera_forward.cross(Vector3.UP) * move_speed
 	else:
 		var fw : bool = Input.is_action_pressed("pl2_move_forward")
 		var bw : bool = Input.is_action_pressed("pl2_move_backward")
@@ -69,12 +72,12 @@ func get_input(delta : float) -> void:
 		var lt : bool = Input.is_action_pressed("pl2_move_left")
 		
 		if fw:
-			move_velocity += -transform.basis.z * move_speed
+			move_velocity += -camera_forward * move_speed
 		if bw:
-			move_velocity += transform.basis.z * move_speed
+			move_velocity += camera_forward  * move_speed
 		if lt:
-			move_velocity += -transform.basis.x * move_speed
+			move_velocity += camera_forward.cross(Vector3.UP) * move_speed
 		if rt:
-			move_velocity += transform.basis.x * move_speed
+			move_velocity += -camera_forward.cross(Vector3.UP) * move_speed
 	
 	move_velocity.y = vy

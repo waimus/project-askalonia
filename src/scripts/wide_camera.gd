@@ -12,14 +12,16 @@ var players_distance : float = 0
 var dynamic_fov : float = 70
 
 
-func _ready():
+func _ready() -> void:
 	player_1 = get_node(player_1_node)
 	player_2 = get_node(player_2_node)
 
 
-func _process(delta):
+func _process(delta : float) -> void :
 	self.translation = (player_1.translation + player_2.translation) * 0.5
 	
 	players_distance = player_1.translation.distance_to(player_2.translation)
-	dynamic_fov = lerp(40, 110, players_distance / 50)
-	wide_camera.set_fov(dynamic_fov)
+	dynamic_fov = lerp(40, 110, players_distance / 70)
+	
+	if wide_camera.get_fov() < 120:
+		wide_camera.set_fov(dynamic_fov)
