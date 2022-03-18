@@ -25,12 +25,14 @@ func _ready() -> void:
 	camera_pivot = get_node(ActiveCameraNode)
 	camera = camera_pivot.get_node("WideCamera")
 	
-#	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	get_tree().set_screen_stretch(SceneTree.STRETCH_MODE_2D, SceneTree.STRETCH_ASPECT_EXPAND, Vector2(1280, 720), Globals.ui_scaling)
 
 
 func _process(delta) -> void:
 	configure_helper()
+	
+	# Rotate player mesh to velocity direction
+	$PlayerMesh.rotation.y = lerp_angle( $PlayerMesh.rotation.y, atan2($Helpers/Velocity.transform.origin.x, $Helpers/Velocity.transform.origin.z), 1)
 
 
 func _physics_process(delta) -> void:
@@ -74,6 +76,7 @@ func get_input(delta : float) -> void:
 	var vy = move_velocity.y
 	move_velocity = Vector3.ZERO
 	
+	# Select which speed used depends on sprint key input
 	var speed_multiplier : float = move_speed
 	if sprint:
 		speed_multiplier = sprint_speed
@@ -94,11 +97,14 @@ func get_input(delta : float) -> void:
 
 func configure_helper() -> void:
 	var x : float = move_velocity.x
-	var y : float = 0
 	var z : float = move_velocity.z
 	
+	# Place helper to the velocity direction
 	if move_velocity.abs() > Vector3(0.1, 0.1, 0.1):
-		$Helpers/Velocity.transform.origin = Vector3(x, y, z).normalized() * 4
-	else:
-		$Helpers/Velocity.transform.origin = Vector3.ZERO
+		$Helpers/Velocity.transform.origin = Vector3(x, 0, z).normalized() * 4
+	# Special case for the Z axis, manually check velocity and place the helper
+	elif move_velocity.z < -0.1:
+		$Helpers/Velocity.transform.origin = Vector3(0, 0, -4)
+	elif move_velocity.z > 0.1:
+		$Helpers/Velocity.transform.origin = Vector3(0, 0, 4)
 
