@@ -37,7 +37,7 @@ func _input(event) -> void:
 
 
 func _unhandled_input(event) -> void:
-	if event.is_action_pressed("ui_cancel"):
+	if event.is_action_pressed("game_kill"):
 		print("Quitting . . .")
 		get_tree().quit()
 		

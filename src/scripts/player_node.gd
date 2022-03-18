@@ -8,7 +8,8 @@ var camera_pivot : Spatial
 var camera : Camera
 
 var world_gravity : Vector3 = Vector3.DOWN * 10.0
-var move_speed : float = 8.0
+var move_speed : float = 7.0
+var sprint_speed : float = 12.0
 var jump_force : float = 25.0
 
 var move_velocity : Vector3 = Vector3.ZERO
@@ -17,6 +18,7 @@ var fw : bool
 var bw : bool
 var lt : bool
 var rt : bool
+var sprint : bool
 
 
 func _ready() -> void:
@@ -58,11 +60,13 @@ func _unhandled_input(event):
 		bw = Input.is_action_pressed("pl1_move_backward")
 		rt = Input.is_action_pressed("pl1_move_right")
 		lt = Input.is_action_pressed("pl1_move_left")
+		sprint = Input.is_action_pressed("pl1_move_sprint")
 	else:
 		fw = Input.is_action_pressed("pl2_move_forward")
 		bw = Input.is_action_pressed("pl2_move_backward")
 		rt = Input.is_action_pressed("pl2_move_right")
 		lt = Input.is_action_pressed("pl2_move_left")
+		sprint = Input.is_action_pressed("pl2_move_sprint")
 
 
 func get_input(delta : float) -> void:
@@ -70,14 +74,20 @@ func get_input(delta : float) -> void:
 	var vy = move_velocity.y
 	move_velocity = Vector3.ZERO
 	
+	var speed_multiplier : float = move_speed
+	if sprint:
+		speed_multiplier = sprint_speed
+	else:
+		speed_multiplier = move_speed
+	
 	if fw:
-		move_velocity += -camera_forward * move_speed
+		move_velocity += -camera_forward * speed_multiplier
 	if bw:
-		move_velocity += camera_forward  * move_speed
+		move_velocity += camera_forward  * speed_multiplier
 	if lt:
-		move_velocity += camera_forward.cross(Vector3.UP) * move_speed
+		move_velocity += camera_forward.cross(Vector3.UP) * speed_multiplier
 	if rt:
-		move_velocity += -camera_forward.cross(Vector3.UP) * move_speed
+		move_velocity += -camera_forward.cross(Vector3.UP) * speed_multiplier
 	
 	move_velocity.y = vy
 
