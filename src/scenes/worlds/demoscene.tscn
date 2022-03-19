@@ -69,6 +69,18 @@ environment = ExtResource( 1 )
 [node name="PhysBox" parent="World/Physics" instance=ExtResource( 6 )]
 transform = Transform( 0.774017, 0, 0.633165, 0, 1, 0, -0.633165, 0, 0.774017, 0, 1, -9 )
 
+[node name="PhysBox4" parent="World/Physics" groups=["Pickable"] instance=ExtResource( 6 )]
+transform = Transform( 0.551762, 0, 0.834002, 0, 1, 0, -0.834002, 0, 0.551762, 11.4381, 1, -4 )
+
+[node name="PhysBox5" parent="World/Physics" groups=["Pickable"] instance=ExtResource( 6 )]
+transform = Transform( 0.333807, 0, 0.942642, 0, 1, 0, -0.942642, 0, 0.333807, 14.0517, 1, -7 )
+
+[node name="PhysBox6" parent="World/Physics" groups=["Pickable"] instance=ExtResource( 6 )]
+transform = Transform( 0.774017, 0, 0.633165, 0, 1, 0, -0.633165, 0, 0.774017, 13, 1, -1 )
+
+[node name="PhysBox7" parent="World/Physics" groups=["Pickable"] instance=ExtResource( 6 )]
+transform = Transform( 0.911295, 0, 0.411753, 0, 1, 0, -0.411753, 0, 0.911295, 13.1893, 3, -1.39562 )
+
 [node name="PhysBox2" parent="World/Physics" instance=ExtResource( 6 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.71293, 1, -9 )
 

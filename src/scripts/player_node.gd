@@ -4,6 +4,8 @@ extends KinematicBody
 export(bool) var player_one : bool = true
 export(NodePath) var ActiveCameraNode : NodePath
 
+onready var raycast_pickup : RayCast = $PlayerMesh/RayCastPickup
+
 var camera_pivot : Spatial
 var camera : Camera
 
@@ -20,6 +22,9 @@ var lt : bool
 var rt : bool
 var sprint : bool
 
+var pickable_body : Spatial
+var pickable_previous_parent : Spatial
+
 
 func _ready() -> void:
 	camera_pivot = get_node(ActiveCameraNode)
@@ -35,7 +40,41 @@ func _process(delta) -> void:
 	$PlayerMesh.rotation.y = lerp_angle( $PlayerMesh.rotation.y, atan2($Helpers/Velocity.transform.origin.x, $Helpers/Velocity.transform.origin.z), 1)
 
 
-func _physics_process(delta) -> void:
+func _physics_process(delta : float) -> void:
+	process_input(delta)
+	
+	if raycast_pickup.is_colliding():
+		pickable_body = raycast_pickup.get_collider()
+		if pickable_body.is_in_group("Pickable"):
+			print("%s is pickable" % pickable_body)
+			
+#			pickable_previous_parent = pickable_body.get_parent()
+#			pickable_previous_parent.remove_child(pickable_body)
+		else:
+			print("raycasted object is not pickable")
+
+
+func _unhandled_input(event):
+	if player_one:
+		fw = Input.is_action_pressed("pl1_move_forward")
+		bw = Input.is_action_pressed("pl1_move_backward")
+		rt = Input.is_action_pressed("pl1_move_right")
+		lt = Input.is_action_pressed("pl1_move_left")
+		sprint = Input.is_action_pressed("pl1_move_sprint")
+		
+		if Input.is_action_just_pressed("pl1_use_func"):
+			raycast_pickup.set_enabled(true)
+		if Input.is_action_just_released("pl1_use_func"):
+			raycast_pickup.set_enabled(false)
+	else:
+		fw = Input.is_action_pressed("pl2_move_forward")
+		bw = Input.is_action_pressed("pl2_move_backward")
+		rt = Input.is_action_pressed("pl2_move_right")
+		lt = Input.is_action_pressed("pl2_move_left")
+		sprint = Input.is_action_pressed("pl2_move_sprint")
+
+
+func process_input(delta : float) -> void:
 	move_velocity += world_gravity * delta
 	get_input(delta)
 	move_velocity = move_and_slide(move_velocity, Vector3.UP)
@@ -54,21 +93,6 @@ func _physics_process(delta) -> void:
 
 		if !self.is_on_floor() and move_velocity.y < 0:
 			world_gravity = Vector3.DOWN * 90.0
-
-
-func _unhandled_input(event):
-	if player_one:
-		fw = Input.is_action_pressed("pl1_move_forward")
-		bw = Input.is_action_pressed("pl1_move_backward")
-		rt = Input.is_action_pressed("pl1_move_right")
-		lt = Input.is_action_pressed("pl1_move_left")
-		sprint = Input.is_action_pressed("pl1_move_sprint")
-	else:
-		fw = Input.is_action_pressed("pl2_move_forward")
-		bw = Input.is_action_pressed("pl2_move_backward")
-		rt = Input.is_action_pressed("pl2_move_right")
-		lt = Input.is_action_pressed("pl2_move_left")
-		sprint = Input.is_action_pressed("pl2_move_sprint")
 
 
 func get_input(delta : float) -> void:
@@ -107,4 +131,3 @@ func configure_helper() -> void:
 		$Helpers/Velocity.transform.origin = Vector3(0, 0, -4)
 	elif move_velocity.z > 0.1:
 		$Helpers/Velocity.transform.origin = Vector3(0, 0, 4)
-
