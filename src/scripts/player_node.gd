@@ -30,7 +30,7 @@ func _ready() -> void:
 	camera_pivot = get_node(ActiveCameraNode)
 	camera = camera_pivot.get_node("WideCamera")
 	
-	get_tree().set_screen_stretch(SceneTree.STRETCH_MODE_2D, SceneTree.STRETCH_ASPECT_EXPAND, Vector2(1280, 720), Globals.ui_scaling)
+	get_tree().set_screen_stretch(SceneTree.STRETCH_MODE_2D, SceneTree.STRETCH_ASPECT_EXPAND, Vector2(1280, 720), AskaloniaGlobals.ui_scaling)
 
 
 func _process(delta) -> void:
@@ -61,17 +61,14 @@ func _unhandled_input(event):
 		rt = Input.is_action_pressed("pl1_move_right")
 		lt = Input.is_action_pressed("pl1_move_left")
 		sprint = Input.is_action_pressed("pl1_move_sprint")
-		
-		if Input.is_action_just_pressed("pl1_use_func"):
-			raycast_pickup.set_enabled(true)
-		if Input.is_action_just_released("pl1_use_func"):
-			raycast_pickup.set_enabled(false)
+		raycast_pickup.set_enabled(Input.is_action_pressed("pl1_use_func"))
 	else:
 		fw = Input.is_action_pressed("pl2_move_forward")
 		bw = Input.is_action_pressed("pl2_move_backward")
 		rt = Input.is_action_pressed("pl2_move_right")
 		lt = Input.is_action_pressed("pl2_move_left")
 		sprint = Input.is_action_pressed("pl2_move_sprint")
+		raycast_pickup.set_enabled(Input.is_action_pressed("pl2_use_func"))
 
 
 func process_input(delta : float) -> void:
@@ -131,3 +128,19 @@ func configure_helper() -> void:
 		$Helpers/Velocity.transform.origin = Vector3(0, 0, -4)
 	elif move_velocity.z > 0.1:
 		$Helpers/Velocity.transform.origin = Vector3(0, 0, 4)
+
+
+func save_node_state() -> Dictionary:
+	var save_dictionary = {
+		"filename" : get_filename(),
+		"parent" : get_parent().get_path(),
+		"pos_x" : self.translation.x,
+		"pos_y" : self.translation.y,
+		"pos_z" : self.translation.z,
+		"active_camera_node" : self.ActiveCameraNode,
+		"camera_pivot" : self.camera_pivot.get_filename(),
+		"camera" : self.camera.get_filename(),
+		"is_player_one" : self.player_one,
+	}
+	return save_dictionary
+

@@ -25,3 +25,15 @@ func _process(delta : float) -> void :
 	
 	if wide_camera.get_fov() < 120:
 		wide_camera.set_fov(dynamic_fov)
+
+
+func save_node_state() -> Dictionary:
+	var save_dictionary = {
+		"filename" : get_filename(),
+		"parent" : get_parent().get_path(),
+		"pos_x" : self.translation.x,
+		"pos_y" : self.translation.y,
+		"pos_z" : self.translation.z,
+		"dynamic_fov" : self.dynamic_fov,
+	}
+	return save_dictionary

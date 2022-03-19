@@ -29,11 +29,12 @@ func _input(event) -> void:
 		OS.set_window_fullscreen(!OS.window_fullscreen)
 		
 	elif event.is_action_pressed("game_reload"):
-		var e = get_tree().reload_current_scene()
-		if e == OK:
-			print("scene reloaded, Code: %s" % e)
-		else:
-			print("error reloading scene, Code: %s" % e)
+		SaveGameSystem.load_game()
+#		var e = get_tree().reload_current_scene()
+#		if e == OK:
+#			print("scene reloaded, Code: %s" % e)
+#		else:
+#			print("error reloading scene, Code: %s" % e)
 
 
 func _unhandled_input(event) -> void:

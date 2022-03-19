@@ -16,7 +16,8 @@ config/icon="res://icon.png"
 
 [autoload]
 
-Globals="*res://scripts/globals.gd"
+AskaloniaGlobals="*res://scripts/globals.gd"
+SaveGameSystem="*res://scripts/savegame_system.gd"
 
 [input]
 
