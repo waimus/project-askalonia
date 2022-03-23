@@ -29,8 +29,8 @@ func _process(delta : float) -> void :
 
 func save_node_state() -> Dictionary:
 	var save_dictionary = {
-		"filename" : get_filename(),
-		"parent" : get_parent().get_path(),
+		"filename" : self.get_filename(),
+		"parent" : self.get_parent().get_path(),
 		"pos_x" : self.translation.x,
 		"pos_y" : self.translation.y,
 		"pos_z" : self.translation.z,

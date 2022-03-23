@@ -27,8 +27,9 @@ var pickable_previous_parent : Spatial
 
 
 func _ready() -> void:
-	camera_pivot = get_node(ActiveCameraNode)
-	camera = camera_pivot.get_node("WideCamera")
+	if ActiveCameraNode:
+		camera_pivot = get_node(ActiveCameraNode)
+		camera = camera_pivot.get_node("WideCamera")
 	
 	get_tree().set_screen_stretch(SceneTree.STRETCH_MODE_2D, SceneTree.STRETCH_ASPECT_EXPAND, Vector2(1280, 720), AskaloniaGlobals.ui_scaling)
 
@@ -93,7 +94,9 @@ func process_input(delta : float) -> void:
 
 
 func get_input(delta : float) -> void:
-	var camera_forward = camera.transform.basis.z.normalized()
+	var camera_forward : Vector3
+	if camera:
+		camera_forward = camera.transform.basis.z.normalized()
 	var vy = move_velocity.y
 	move_velocity = Vector3.ZERO
 	
@@ -132,8 +135,8 @@ func configure_helper() -> void:
 
 func save_node_state() -> Dictionary:
 	var save_dictionary = {
-		"filename" : get_filename(),
-		"parent" : get_parent().get_path(),
+		"filename" : self.get_filename(),
+		"parent" : self.get_parent().get_path(),
 		"pos_x" : self.translation.x,
 		"pos_y" : self.translation.y,
 		"pos_z" : self.translation.z,
