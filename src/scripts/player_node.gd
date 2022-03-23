@@ -5,6 +5,8 @@ export(bool) var player_one : bool = true
 export(NodePath) var ActiveCameraNode : NodePath
 
 onready var raycast_pickup : RayCast = $PlayerMesh/RayCastPickup
+onready var grab_attachment_point : Spatial = $PlayerMesh/GrabAttachement
+onready var pickup_cooldown : Timer = $Helpers/PickupCooldown
 
 var camera_pivot : Spatial
 var camera : Camera
@@ -21,6 +23,7 @@ var bw : bool
 var lt : bool
 var rt : bool
 var sprint : bool
+var pickup : bool
 
 var pickable_body : Spatial
 var pickable_previous_parent : Spatial
@@ -36,6 +39,7 @@ func _ready() -> void:
 
 func _process(delta) -> void:
 	configure_helper()
+	handle_drop_pickables()
 	
 	# Rotate player mesh to velocity direction
 	$PlayerMesh.rotation.y = lerp_angle( $PlayerMesh.rotation.y, atan2($Helpers/Velocity.transform.origin.x, $Helpers/Velocity.transform.origin.z), 1)
@@ -44,13 +48,26 @@ func _process(delta) -> void:
 func _physics_process(delta : float) -> void:
 	process_input(delta)
 	
+	# Picking up pickables
+	# TODO: can steal other players' picked object but the other player is still in picking state
+	#		which the transform offset does not changed and the other player can drop it remotely
 	if raycast_pickup.is_colliding():
 		pickable_body = raycast_pickup.get_collider()
-		if pickable_body.is_in_group("Pickable"):
+		if pickable_body.is_in_group("Pickable") and pickup_cooldown.is_stopped():
 			print("%s is pickable" % pickable_body)
 			
-#			pickable_previous_parent = pickable_body.get_parent()
-#			pickable_previous_parent.remove_child(pickable_body)
+			if grab_attachment_point.get_child_count() <= 0:
+				pickable_previous_parent = pickable_body.get_parent()
+				pickable_previous_parent.remove_child(pickable_body)
+				grab_attachment_point.add_child(pickable_body)
+				
+				# Reset transformation
+#				pickable_body.transform = Transform()
+				pickable_body.transform.origin = Vector3.ZERO
+				pickable_body.rotation_degrees = Vector3.ZERO
+				pickup_cooldown.start()
+			else:
+				print("Can't pick more than one object")
 		else:
 			print("raycasted object is not pickable")
 
@@ -62,14 +79,18 @@ func _unhandled_input(event):
 		rt = Input.is_action_pressed("pl1_move_right")
 		lt = Input.is_action_pressed("pl1_move_left")
 		sprint = Input.is_action_pressed("pl1_move_sprint")
-		raycast_pickup.set_enabled(Input.is_action_pressed("pl1_use_func"))
+		pickup = Input.is_action_just_pressed("pl1_use_func")
+		
+		raycast_pickup.set_enabled(pickup)
 	else:
 		fw = Input.is_action_pressed("pl2_move_forward")
 		bw = Input.is_action_pressed("pl2_move_backward")
 		rt = Input.is_action_pressed("pl2_move_right")
 		lt = Input.is_action_pressed("pl2_move_left")
 		sprint = Input.is_action_pressed("pl2_move_sprint")
-		raycast_pickup.set_enabled(Input.is_action_pressed("pl2_use_func"))
+		pickup = Input.is_action_pressed("pl2_use_func")
+		
+		raycast_pickup.set_enabled(pickup)
 
 
 func process_input(delta : float) -> void:
@@ -131,6 +152,18 @@ func configure_helper() -> void:
 		$Helpers/Velocity.transform.origin = Vector3(0, 0, -4)
 	elif move_velocity.z > 0.1:
 		$Helpers/Velocity.transform.origin = Vector3(0, 0, 4)
+
+
+func handle_drop_pickables() -> void:
+	if pickup and grab_attachment_point.get_child_count() > 0:
+		if pickup_cooldown.is_stopped():
+			grab_attachment_point.remove_child(pickable_body)
+			pickable_previous_parent.add_child(pickable_body)
+			
+			pickable_body.global_transform.origin = grab_attachment_point.global_transform.origin + Vector3.UP
+			if !pickup_cooldown.is_stopped():
+				pickup_cooldown.stop()
+			pickup_cooldown.start()
 
 
 func save_node_state() -> Dictionary:

@@ -48,8 +48,15 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
 cast_to = Vector3( 0, 2, 0 )
 debug_shape_custom_color = Color( 1, 0.890196, 0, 1 )
 
+[node name="GrabAttachement" type="Spatial" parent="PlayerMesh"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 2, -0.3 )
+
 [node name="Helpers" type="Spatial" parent="."]
 
 [node name="Velocity" type="MeshInstance" parent="Helpers"]
 mesh = SubResource( 6 )
 material/0 = null
+
+[node name="PickupCooldown" type="Timer" parent="Helpers"]
+wait_time = 0.5
+one_shot = true
