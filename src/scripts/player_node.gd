@@ -15,7 +15,6 @@ var world_gravity : Vector3 = Vector3.DOWN * 10.0
 var move_speed : float = 7.0
 var sprint_speed : float = 12.0
 var jump_force : float = 25.0
-
 var move_velocity : Vector3 = Vector3.ZERO
 
 var fw : bool
@@ -53,6 +52,7 @@ func _physics_process(delta : float) -> void:
 	#		which the transform offset does not changed and the other player can drop it remotely
 	if raycast_pickup.is_colliding():
 		pickable_body = raycast_pickup.get_collider()
+		
 		if pickable_body.is_in_group("Pickable") and pickup_cooldown.is_stopped():
 			print("%s is pickable" % pickable_body)
 			
@@ -62,13 +62,14 @@ func _physics_process(delta : float) -> void:
 				grab_attachment_point.add_child(pickable_body)
 				
 				# Reset transformation
-#				pickable_body.transform = Transform()
 				pickable_body.transform.origin = Vector3.ZERO
 				pickable_body.rotation_degrees = Vector3.ZERO
 				pickup_cooldown.start()
 			else:
 				print("Can't pick more than one object")
 		else:
+			# Remove invalid pickable_body to be able to pick new object
+			pickable_body = null
 			print("raycasted object is not pickable")
 
 
@@ -155,12 +156,16 @@ func configure_helper() -> void:
 
 
 func handle_drop_pickables() -> void:
-	if pickup and grab_attachment_point.get_child_count() > 0:
-		if pickup_cooldown.is_stopped():
+	if pickup and pickable_body:
+		if pickup_cooldown.is_stopped() and grab_attachment_point.get_child_count() > 0:
 			grab_attachment_point.remove_child(pickable_body)
 			pickable_previous_parent.add_child(pickable_body)
 			
-			pickable_body.global_transform.origin = grab_attachment_point.global_transform.origin + Vector3.UP
+			pickable_body.global_transform.origin = grab_attachment_point.global_transform.origin + (Vector3.UP * 0.0)
+			
+			if pickable_body:
+				pickable_body = null
+			
 			if !pickup_cooldown.is_stopped():
 				pickup_cooldown.stop()
 			pickup_cooldown.start()
@@ -173,9 +178,9 @@ func save_node_state() -> Dictionary:
 		"pos_x" : self.translation.x,
 		"pos_y" : self.translation.y,
 		"pos_z" : self.translation.z,
-		"active_camera_node" : self.ActiveCameraNode,
-		"camera_pivot" : self.camera_pivot.get_filename(),
-		"camera" : self.camera.get_filename(),
+		"active_camera_node" : get_node(ActiveCameraNode).get_path(),
+#		"camera_pivot" : self.camera_pivot.get_filename(),
+#		"camera" : self.camera.get_filename(),
 		"is_player_one" : self.player_one,
 	}
 	return save_dictionary

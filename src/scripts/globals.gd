@@ -12,6 +12,7 @@ var mouse_receiving : bool = false
 var mouse_motion_count : int
 var mouse_motion_last_count : int
 
+
 func _ready() -> void:
 #	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 #	get_tree().set_screen_stretch(SceneTree.STRETCH_MODE_2D, SceneTree.STRETCH_ASPECT_EXPAND, Vector2(1280, 720), ui_scaling)

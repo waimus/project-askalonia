@@ -1,7 +1,9 @@
 extends Node
 
 
-const SAVE_PATH = "user://savedata.sav"
+# User filesystem location, see: https://godotengine.org/qa/4351/where-are-user-locations-on-each-platform
+# Godot Flatpak is at ~/.var/app/org.godotengine.Godot/data/godot/app_userdata/askalonia
+const SAVE_PATH = "user://savedata.dat"
 
 
 # Courtesy of https://docs.godotengine.org/en/3.4/tutorials/io/saving_games.html (CC BY 3.0)
@@ -17,7 +19,7 @@ func save_game():
 
 		# Check the node has a save function.
 		if !node.has_method("save_node_state"):
-			print("persistent node '%s' is missing a save() function, skipped" % node.name)
+			print("persistent node '%s' is missing a save_node_state() function, skipped" % node.name)
 			continue
 
 		# Call the node's save function.
@@ -28,6 +30,7 @@ func save_game():
 	save_game.close()
 
 
+# ISSUE: loading game emptied $SAVE_PATH file somehow and then complains the data couldn't be found
 func load_game():
 	var save_game = File.new()
 	if not save_game.file_exists(SAVE_PATH):

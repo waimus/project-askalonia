@@ -20,12 +20,12 @@ func _ready():
 
 
 func _on_trigger_body_entered(body):
-	if body.is_in_group("Players"):
+	if body.is_in_group("Players") or body.is_in_group("Pickable"):
 		var door_animation : AnimationPlayer = door_object.get_node("AnimationPlayer")
 		door_animation.play("door_open")
 
 
 func _on_trigger_body_exited(body):
-	if body.is_in_group("Players"):
+	if body.is_in_group("Players") or body.is_in_group("Pickables"):
 		var door_animation : AnimationPlayer = door_object.get_node("AnimationPlayer")
 		door_animation.play_backwards("door_open")
