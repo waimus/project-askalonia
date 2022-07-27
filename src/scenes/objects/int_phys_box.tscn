@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://addons/kenney_prototypes/assets/colors/green/materials/material_001.tres" type="Material" id=1]
+[ext_resource path="res://physics_materials/high_friction.tres" type="PhysicsMaterial" id=2]
+
+[sub_resource type="BoxShape" id=1]
+
+[sub_resource type="CubeMesh" id=2]
+
+[node name="PhysBox" type="RigidBody"]
+mass = 90.0
+physics_material_override = ExtResource( 2 )
+gravity_scale = 4.0
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+shape = SubResource( 1 )
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+mesh = SubResource( 2 )
+material/0 = ExtResource( 1 )

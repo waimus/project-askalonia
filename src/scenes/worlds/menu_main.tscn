@@ -1,0 +1,166 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://scripts/menu/menu_main.gd" type="Script" id=1]
+[ext_resource path="res://ui/fonts/JetBrainsMono/JetBrainsMono-Regular.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://ui/styles/panel_main_bg.tres" type="StyleBox" id=3]
+[ext_resource path="res://ui/styles/buton_main_big.tres" type="StyleBox" id=4]
+[ext_resource path="res://ui/styles/button_main.tres" type="StyleBox" id=5]
+[ext_resource path="res://ui/styles/button_main_pressed.tres" type="StyleBox" id=6]
+[ext_resource path="res://ui/styles/button_main_focus.tres" type="StyleBox" id=7]
+[ext_resource path="res://ui/styles/button_main_hover.tres" type="StyleBox" id=8]
+[ext_resource path="res://ui/styles/buton_main_big_press.tres" type="StyleBox" id=9]
+[ext_resource path="res://ui/styles/buton_main_big_hover.tres" type="StyleBox" id=10]
+[ext_resource path="res://ui/styles/buton_main_big_focus.tres" type="StyleBox" id=11]
+
+[sub_resource type="DynamicFont" id=1]
+size = 32
+font_data = ExtResource( 2 )
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.929412, 0.929412, 0.929412, 1 )
+
+[node name="MenuMain" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+
+[node name="Panel" type="Panel" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/panel = ExtResource( 3 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 50.0
+margin_top = 50.0
+margin_right = -50.0
+margin_bottom = -50.0
+custom_constants/separation = 15
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer"]
+margin_right = 924.0
+margin_bottom = 43.0
+custom_fonts/font = SubResource( 1 )
+text = "ROADS UNTRAVELED"
+
+[node name="Panel" type="Panel" parent="Panel/VBoxContainer"]
+margin_top = 58.0
+margin_right = 924.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 0, 2 )
+custom_styles/panel = SubResource( 2 )
+
+[node name="Panel2" type="Panel" parent="Panel/VBoxContainer"]
+margin_top = 75.0
+margin_right = 924.0
+margin_bottom = 78.0
+rect_min_size = Vector2( 0, 3 )
+custom_styles/panel = ExtResource( 3 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer"]
+margin_top = 93.0
+margin_right = 924.0
+margin_bottom = 393.0
+custom_constants/separation = 12
+
+[node name="button_new" type="Button" parent="Panel/VBoxContainer/HBoxContainer"]
+margin_right = 200.0
+margin_bottom = 300.0
+rect_min_size = Vector2( 200, 300 )
+custom_styles/hover = ExtResource( 10 )
+custom_styles/pressed = ExtResource( 9 )
+custom_styles/focus = ExtResource( 11 )
+custom_styles/normal = ExtResource( 4 )
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer/HBoxContainer/button_new"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_vertical = 0
+rect_min_size = Vector2( 0, 40 )
+text = "Start New"
+align = 1
+valign = 1
+
+[node name="button_chapter" type="Button" parent="Panel/VBoxContainer/HBoxContainer"]
+margin_left = 212.0
+margin_right = 412.0
+margin_bottom = 300.0
+rect_min_size = Vector2( 200, 300 )
+custom_styles/hover = ExtResource( 10 )
+custom_styles/pressed = ExtResource( 9 )
+custom_styles/focus = ExtResource( 11 )
+custom_styles/normal = ExtResource( 4 )
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer/HBoxContainer/button_chapter"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_vertical = 0
+rect_min_size = Vector2( 0, 40 )
+text = "Chapter Selection"
+align = 1
+valign = 1
+
+[node name="button_opt" type="Button" parent="Panel/VBoxContainer/HBoxContainer"]
+margin_left = 424.0
+margin_right = 624.0
+margin_bottom = 300.0
+rect_min_size = Vector2( 200, 300 )
+custom_styles/hover = ExtResource( 10 )
+custom_styles/pressed = ExtResource( 9 )
+custom_styles/focus = ExtResource( 11 )
+custom_styles/normal = ExtResource( 4 )
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer/HBoxContainer/button_opt"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_vertical = 0
+rect_min_size = Vector2( 0, 40 )
+text = "Game Options"
+align = 1
+valign = 1
+
+[node name="Panel4" type="Panel" parent="Panel/VBoxContainer"]
+margin_top = 408.0
+margin_right = 924.0
+margin_bottom = 411.0
+rect_min_size = Vector2( 0, 3 )
+custom_styles/panel = ExtResource( 3 )
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Panel/VBoxContainer"]
+margin_top = 426.0
+margin_right = 924.0
+margin_bottom = 466.0
+custom_constants/separation = 8
+
+[node name="button_quit" type="Button" parent="Panel/VBoxContainer/HBoxContainer2"]
+margin_right = 50.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 50, 40 )
+size_flags_horizontal = 0
+custom_styles/hover = ExtResource( 8 )
+custom_styles/pressed = ExtResource( 6 )
+custom_styles/focus = ExtResource( 7 )
+custom_styles/normal = ExtResource( 5 )
+text = "Quit"
+
+[node name="button_credits" type="Button" parent="Panel/VBoxContainer/HBoxContainer2"]
+margin_left = 58.0
+margin_right = 158.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 100, 30 )
+size_flags_horizontal = 0
+custom_styles/hover = ExtResource( 8 )
+custom_styles/pressed = ExtResource( 6 )
+custom_styles/focus = ExtResource( 7 )
+custom_styles/normal = ExtResource( 5 )
+text = "Credits"
+
+[connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer/button_new" to="." method="_on_button_new_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer/button_chapter" to="." method="_on_button_chapter_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer/button_opt" to="." method="_on_button_opt_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer2/button_quit" to="." method="_on_button_quit_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer2/button_credits" to="." method="_on_button_credits_pressed"]

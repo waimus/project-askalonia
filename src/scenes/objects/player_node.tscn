@@ -1,0 +1,62 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://scripts/player_node.gd" type="Script" id=1]
+
+[sub_resource type="CapsuleShape" id=1]
+radius = 0.7
+height = 2.0
+
+[sub_resource type="SpatialMaterial" id=4]
+albedo_color = Color( 1, 0.105882, 0.105882, 1 )
+
+[sub_resource type="CapsuleMesh" id=2]
+material = SubResource( 4 )
+radius = 0.7
+mid_height = 2.0
+
+[sub_resource type="SpatialMaterial" id=5]
+albedo_color = Color( 0.72549, 0.72549, 0.72549, 1 )
+
+[sub_resource type="CapsuleMesh" id=3]
+material = SubResource( 5 )
+radius = 0.5
+mid_height = 0.3
+
+[sub_resource type="CubeMesh" id=6]
+size = Vector3( 0.2, 0.2, 0.2 )
+
+[node name="KinematicBody" type="KinematicBody" groups=["Players", "Presistent"]]
+collision_layer = 17
+script = ExtResource( 1 )
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1.7, 0 )
+shape = SubResource( 1 )
+
+[node name="PlayerMesh" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1.7, 0 )
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="MeshInstance" type="MeshInstance" parent="PlayerMesh"]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0.411023, -0.781037 )
+mesh = SubResource( 3 )
+material/0 = null
+
+[node name="RayCastPickup" type="RayCast" parent="PlayerMesh"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
+cast_to = Vector3( 0, 2, 0 )
+debug_shape_custom_color = Color( 1, 0.890196, 0, 1 )
+
+[node name="GrabAttachement" type="Spatial" parent="PlayerMesh"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 2, -0.3 )
+
+[node name="Helpers" type="Spatial" parent="."]
+
+[node name="Velocity" type="MeshInstance" parent="Helpers"]
+mesh = SubResource( 6 )
+material/0 = null
+
+[node name="PickupCooldown" type="Timer" parent="Helpers"]
+wait_time = 0.5
+one_shot = true

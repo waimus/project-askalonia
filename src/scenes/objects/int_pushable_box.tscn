@@ -1,0 +1,93 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://scripts/int_pushable_box.gd" type="Script" id=1]
+[ext_resource path="res://addons/kenney_prototypes/assets/colors/green/materials/material_001.tres" type="Material" id=2]
+
+[sub_resource type="BoxShape" id=1]
+
+[sub_resource type="CubeMesh" id=2]
+
+[sub_resource type="BoxShape" id=3]
+extents = Vector3( 0.5, 1, 1 )
+
+[sub_resource type="CubeMesh" id=4]
+size = Vector3( 0.2, 0.2, 0.2 )
+
+[sub_resource type="BoxShape" id=5]
+extents = Vector3( 1, 1, 0.5 )
+
+[node name="IntPushableBox" type="KinematicBody"]
+script = ExtResource( 1 )
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
+shape = SubResource( 1 )
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
+mesh = SubResource( 2 )
+material/0 = ExtResource( 2 )
+
+[node name="AreaBack" type="Area" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -2 )
+
+[node name="CollisionShape" type="CollisionShape" parent="AreaBack"]
+shape = SubResource( 3 )
+
+[node name="MeshInstance" type="MeshInstance" parent="AreaBack"]
+mesh = SubResource( 4 )
+material/0 = null
+
+[node name="PlayerOffset" type="Spatial" parent="AreaBack"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0.5 )
+
+[node name="AreaFront" type="Area" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 2 )
+
+[node name="CollisionShape" type="CollisionShape" parent="AreaFront"]
+shape = SubResource( 3 )
+
+[node name="MeshInstance" type="MeshInstance" parent="AreaFront"]
+mesh = SubResource( 4 )
+material/0 = null
+
+[node name="PlayerOffset" type="Spatial" parent="AreaFront"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, -0.5 )
+
+[node name="AreaRight" type="Area" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="AreaRight"]
+shape = SubResource( 5 )
+
+[node name="MeshInstance" type="MeshInstance" parent="AreaRight"]
+mesh = SubResource( 4 )
+material/0 = null
+
+[node name="PlayerOffset" type="Spatial" parent="AreaRight"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, -1, 0 )
+
+[node name="AreaLeft" type="Area" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="AreaLeft"]
+shape = SubResource( 5 )
+
+[node name="MeshInstance" type="MeshInstance" parent="AreaLeft"]
+mesh = SubResource( 4 )
+material/0 = null
+
+[node name="PlayerOffset" type="Spatial" parent="AreaLeft"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, -1, 0 )
+
+[node name="MoveTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="body_entered" from="AreaBack" to="." method="_on_area_back_body_entered"]
+[connection signal="body_exited" from="AreaBack" to="." method="_on_area_back_body_exited"]
+[connection signal="body_entered" from="AreaFront" to="." method="_on_area_front_body_entered"]
+[connection signal="body_exited" from="AreaFront" to="." method="_on_area_front_body_exited"]
+[connection signal="body_entered" from="AreaRight" to="." method="_on_area_right_body_entered"]
+[connection signal="body_exited" from="AreaRight" to="." method="_on_area_right_body_exited"]
+[connection signal="body_entered" from="AreaLeft" to="." method="_on_area_left_body_entered"]
+[connection signal="body_exited" from="AreaLeft" to="." method="_on_area_left_body_exited"]

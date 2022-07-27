@@ -1,0 +1,165 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://scripts/menu/menu_credits.gd" type="Script" id=1]
+[ext_resource path="res://ui/fonts/JetBrainsMono/JetBrainsMono-Regular.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://ui/styles/panel_main_bg.tres" type="StyleBox" id=3]
+[ext_resource path="res://ui/fonts/JetBrainsMono/JetBrainsMono.tres" type="DynamicFont" id=4]
+[ext_resource path="res://ui/styles/button_main.tres" type="StyleBox" id=5]
+[ext_resource path="res://ui/styles/button_main_pressed.tres" type="StyleBox" id=6]
+[ext_resource path="res://ui/styles/button_main_focus.tres" type="StyleBox" id=7]
+[ext_resource path="res://ui/styles/button_main_hover.tres" type="StyleBox" id=8]
+
+[sub_resource type="DynamicFont" id=1]
+size = 32
+font_data = ExtResource( 2 )
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.929412, 0.929412, 0.929412, 1 )
+
+[node name="MenuMain" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+
+[node name="Panel" type="Panel" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/panel = ExtResource( 3 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 50.0
+margin_top = 50.0
+margin_right = -50.0
+margin_bottom = -50.0
+custom_constants/separation = 15
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer"]
+margin_right = 924.0
+margin_bottom = 43.0
+custom_fonts/font = SubResource( 1 )
+text = "ROADS UNTRAVELED - Credits"
+
+[node name="Panel" type="Panel" parent="Panel/VBoxContainer"]
+margin_top = 58.0
+margin_right = 924.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 0, 2 )
+custom_styles/panel = SubResource( 2 )
+
+[node name="Panel2" type="Panel" parent="Panel/VBoxContainer"]
+margin_top = 75.0
+margin_right = 924.0
+margin_bottom = 78.0
+rect_min_size = Vector2( 0, 3 )
+custom_styles/panel = ExtResource( 3 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer"]
+margin_top = 93.0
+margin_right = 924.0
+margin_bottom = 393.0
+custom_constants/separation = 12
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/VBoxContainer/HBoxContainer"]
+margin_bottom = 300.0
+rect_min_size = Vector2( 0, 300 )
+custom_constants/separation = 12
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Panel/VBoxContainer/HBoxContainer"]
+margin_left = 12.0
+margin_right = 924.0
+margin_bottom = 300.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/normal_font = ExtResource( 4 )
+text = "Final Masquerade - Linkin Park
+ 
+
+Tearing me apart with words you wouldn't say
+And, suddenly, tomorrow's moment washed away
+Cuz I don't have a reason
+And you don't have the time
+But we both keep on waiting
+For something we won't find
+
+The light on the horizon
+Was brighter yesterday
+With shadows floating over
+The scars begin to fade
+We said it was forever
+But then it slipped away
+Standing at the end
+Of the final masquerade
+The final masquerade
+
+All I ever wanted
+The secrets that you keep
+All you ever wanted
+The truth I couldn't speak
+Cuz I can't see forgiveness
+And you can't see the crime
+And we both keep on waiting for
+What we left behind
+
+The light on the horizon
+Was brighter yesterday
+With shadows floating over
+The scars begin to fade
+We said it was forever
+But then it slipped away
+Standing at the end
+Of the final masquerade
+The final masquerade
+
+The final masquerade
+Standing at the end
+Of the final masquerade
+
+The light on the horizon
+Was brighter yesterday
+With shadows floating over
+The scars begin to fade
+We said it was forever
+But then it slipped away
+Standing at the end
+Of the final masquerade
+
+Oh, oh, oh
+Oh, oh, oh
+Standing at the end
+Of the final masquerade
+
+Oh, oh, oh
+Oh, oh, oh
+Standing at the end
+Of the final masquerade
+The final masquerade
+
+Oh, oh, oh
+
+ 
+
+Esta letra foi disponibilizada pelo site
+http://letras.mus.br"
+
+[node name="Panel3" type="Panel" parent="Panel/VBoxContainer"]
+margin_top = 408.0
+margin_right = 924.0
+margin_bottom = 411.0
+rect_min_size = Vector2( 0, 3 )
+custom_styles/panel = ExtResource( 3 )
+
+[node name="button_back" type="Button" parent="Panel/VBoxContainer"]
+margin_top = 426.0
+margin_right = 50.0
+margin_bottom = 466.0
+rect_min_size = Vector2( 50, 40 )
+size_flags_horizontal = 0
+custom_styles/hover = ExtResource( 8 )
+custom_styles/pressed = ExtResource( 6 )
+custom_styles/focus = ExtResource( 7 )
+custom_styles/normal = ExtResource( 5 )
+text = "Back"
+
+[connection signal="pressed" from="Panel/VBoxContainer/button_back" to="." method="_on_button_back_pressed"]
